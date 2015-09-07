@@ -27,6 +27,11 @@ Run the [Four Letter Words](https://zookeeper.apache.org/doc/r3.4.6/zookeeperAdm
 weave run -it --rm busybox sh -c 'echo stat | nc zoo1 2181'
 ```
 
+Run the ZooKeeper CLI
+```
+weave run -it --rm grumpydocker/zookeeper /zookeeper/bin/zkCli.sh -server zoo1
+```
+
 ### Runtime
 The default `/entrypoint.sh` will look for `ZK_MYID` and `ZK_SERVER[X]` environment variables and dynamically setup `/data/myid` and `/etc/zookeeper/zoo.cfg`, before running
 
