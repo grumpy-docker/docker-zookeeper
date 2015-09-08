@@ -1,4 +1,4 @@
-FROM java:8-jre
+FROM java:8-jdk
 MAINTAINER Alex Sherwin <alex.sherwin@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive

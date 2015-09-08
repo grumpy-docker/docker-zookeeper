@@ -22,6 +22,16 @@ echo ${ZK_MYID} >> /data/myid
 
 echo "Setting up /etc/zookeeper/zoo.cfg servers based on environment variables..."
 
+if [ ! -z "${ZK_BIND_ADDRESS}" ]; then
+    echo "ZK_BIND_ADDRESS: ${ZK_BIND_ADDRESS}"
+    sed -r -i "s/#(clientPortAddress)=.*/\1=${ZK_BIND_ADDRESS}/g" /etc/zookeeper/zoo.cfg
+fi
+
+if [ ! -z "${ZK_CLIENT_PORT}" ]; then
+    echo "ZK_CLIENT_PORT: ${ZK_CLIENT_PORT}"
+    sed -r -i "s/(clientPort)=.*/\1=${ZK_CLIENT_PORT}/g" /etc/zookeeper/zoo.cfg
+fi
+
 if [ ! -z "${ZK_SERVER1}" ]; then
     echo "ZooKeeper Server 1: ${ZK_SERVER1}"
     sed -r -i "s/#(server\.1)=FIXME(:2888:3888)/\1=${ZK_SERVER1}\2/g" /etc/zookeeper/zoo.cfg

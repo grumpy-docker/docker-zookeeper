@@ -16,20 +16,20 @@ The `ZK_MYID` and at least two `ZK_SERVER[X]` environment variables must be set
 
 Run a 3 node ensemble
 ```
-weave run -dt --name=zoo1 -e ZK_MYID=1 -e ZK_SERVER1=zoo1 -e ZK_SERVER2=zoo2 -e ZK_SERVER3=zoo3 grumpydocker/zookeeper
-weave run -dt --name=zoo2 -e ZK_MYID=2 -e ZK_SERVER1=zoo1 -e ZK_SERVER2=zoo2 -e ZK_SERVER3=zoo3 grumpydocker/zookeeper
-weave run -dt --name=zoo3 -e ZK_MYID=3 -e ZK_SERVER1=zoo1 -e ZK_SERVER2=zoo2 -e ZK_SERVER3=zoo3 grumpydocker/zookeeper
+weave run -dt -p :2181:2181 --name=zoo1 -e ZK_MYID=1 -e ZK_CLIENT_PORT=2181 -e ZK_SERVER1=zoo1.weave.local -e ZK_SERVER2=zoo2.weave.local -e ZK_SERVER3=zoo3.weave.local zookeeper
+weave run -dt -p :2182:2182 --name=zoo2 -e ZK_MYID=2 -e ZK_CLIENT_PORT=2182 -e ZK_SERVER1=zoo1.weave.local -e ZK_SERVER2=zoo2.weave.local -e ZK_SERVER3=zoo3.weave.local zookeeper
+weave run -dt -p :2183:2183 --name=zoo3 -e ZK_MYID=3 -e ZK_CLIENT_PORT=2183 -e ZK_SERVER1=zoo1.weave.local -e ZK_SERVER2=zoo2.weave.local -e ZK_SERVER3=zoo3.weave.local zookeeper
 ```
 
 Run the [Four Letter Words](https://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_zkCommands)
 
 ```
-weave run -it --rm busybox sh -c 'echo stat | nc zoo1 2181'
+weave run -it --rm busybox sh -c 'echo stat | nc zoo1.weave.local 2181'
 ```
 
 Run the ZooKeeper CLI
 ```
-weave run -it --rm grumpydocker/zookeeper /zookeeper/bin/zkCli.sh -server zoo1
+weave run -it --rm grumpydocker/zookeeper /zookeeper/bin/zkCli.sh -server zoo1.weave.local
 ```
 
 ### Runtime
